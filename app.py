@@ -3,8 +3,6 @@ from Object.people import People
 
 app = Flask(__name__)
 
-persons = []
-
 
 @app.route('/')
 def hello_world():
@@ -13,16 +11,18 @@ def hello_world():
 
 @app.route('/list')
 def list():
-    # people = People()
-    return jsonify({'response': persons})
+    people = People()
+    response = [ob.__dict__ for ob in people.getAll()]
+    return jsonify({'response': response})
 
 
 @app.route('/add', methods=['POST'])
 def addPeople():
-    # person = {'name': request.json['name'], 'age': request.json['age'], 'gender': request.json['gender']}
     person = People(request.json['name'], request.json['age'], request.json['gender'])
-    persons.append(person)
-    return jsonify({'response': [ob.__dict__ for ob in persons]})
+    people = People.addPeople(person)
+    response = [ob.__dict__ for ob in people]
+    return jsonify({'response': response})
+
 
 if __name__ == '__main__':
     app.run()
