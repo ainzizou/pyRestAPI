@@ -1,32 +1,24 @@
-import json
+class People(object):
+    peopleList = []
 
-class People():
+    # Put name = None to define if the arguments not passed in the constructor
+    def __init__(self, name=None, age=None, gender=None):
+        self.name = name
+        self.age = age
+        self.gender = gender
 
-    people = [
-        {
-            'name':'Achmad Zulkarnain',
-            'age': '21',
-            'gender': 'male',
-         },
-        {
-            'name': 'Akbar Navis',
-            'age': '17',
-            'gender': 'male',
-        },
-        {
-            'name': 'Khin Lan San',
-            'age': '22',
-            'gender': 'female',
+    def serialize(self):
+        return {
+            'name': self.name,
+            'age': self.age,
+            'gender': self.gender,
         }
-    ]
-
-    # def __init__(self, name, age, gender):
-    #     self.name = name
-    #     self.age = age
-    #     self.gender = gender
 
     def walk(self):
         return "This is from People walk from different object"
 
     def getAll(self):
-        return self.people
+        return self.peopleList
+
+    def addPeople(self):
+        self.peopleList.append(self)
